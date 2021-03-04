@@ -1,0 +1,12 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+<!--    <style name="Theme.Default" parent="@android:style/Theme"></style>-->
+<!--    <style name="Theme.NoTitle" parent="@android:style/Theme.NoTitleBar"></style>-->
+<!--    <style name="Theme.FullScreen" parent="@android:style/Theme.NoTitleBar.Fullscreen"></style>-->
+
+    <style name="Theme.AppCompat." parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/purble</item>
+        <item name="colorPrimaryDark">@color/purble</item>
+
+    </style>
+</resources>
