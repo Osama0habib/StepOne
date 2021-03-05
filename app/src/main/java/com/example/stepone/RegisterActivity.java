@@ -98,6 +98,8 @@ signUpBtn.setOnClickListener(new View.OnClickListener() {
                     hashMap.put("id",userID);
                     hashMap.put("username",username);
                     hashMap.put("imageURL","default");
+                    hashMap.put("status","Offline");
+                    hashMap.put("search",username.toLowerCase());
                     reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
