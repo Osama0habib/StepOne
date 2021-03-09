@@ -29,6 +29,16 @@
             android:padding="8dp"
             android:text="hello"
             android:textSize="18sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Seen"
+            android:textColor="#fff"
+            android:layout_below="@+id/show_message"
+            android:layout_alignParentRight="true"
+            android:textSize="14sp"
+            android:layout_marginTop="16dp"
+            android:id="@+id/txt_seen"/>
 
 
     </RelativeLayout>

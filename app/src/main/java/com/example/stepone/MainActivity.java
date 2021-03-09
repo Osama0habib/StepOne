@@ -60,7 +60,7 @@ DatabaseReference reference;
                 if (user.getImageURl().equals("default")){
                     profile_image.setImageResource(R.mipmap.ic_launcher);
                 }else {
-                    Glide.with(MainActivity.this).load(user.getImageURl()).into(profile_image);
+                    Glide.with(getApplicationContext()).load(user.getImageURl()).into(profile_image);
                 }
 
             }

@@ -42,6 +42,8 @@ ImageButton btn_send;
 MessageAdapter messageAdapter;
 List<Chat> mChat;
 RecyclerView recyclerView;
+ValueEventListener seenListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,9 +99,32 @@ RecyclerView recyclerView;
                 if (user.getImageURl().equals("default")){
                     profile_image.setImageResource(R.mipmap.ic_launcher);
                 }else {
-                    Glide.with(MessageActivity.this).load(user.getImageURl()).into(profile_image);
+                    Glide.with(getApplicationContext()).load(user.getImageURl()).into(profile_image);
                 }
                 readMessages(fUser.getUid() , userId , user.getImageURl());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        seenMessage(userId);
+    }
+
+    private void seenMessage(String userId){
+        reference= FirebaseDatabase.getInstance().getReference("Chats");
+        seenListener = reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Chat chat = snapshot.getValue(Chat.class);
+                    if(chat.getReceiver().equals(fUser.getUid()) && chat.getSender().equals(userId)){
+                        HashMap<String , Object> hashMap = new HashMap<>();
+                        hashMap.put("isseen",true);
+                        snapshot.getRef().updateChildren(hashMap);
+                    }
+                }
             }
 
             @Override
@@ -114,6 +139,7 @@ RecyclerView recyclerView;
         hashMap.put("sender" , sender);
         hashMap.put("receiver" , receiver);
         hashMap.put("message",message);
+        hashMap.put("isseen",false);
         reference.child("Chats").push().setValue(hashMap);
     }
     private void readMessages(String myId , String userId , String imageURL){
@@ -155,6 +181,7 @@ RecyclerView recyclerView;
     @Override
     protected void onPause() {
         super.onPause();
+        reference.removeEventListener(seenListener);
         status("Offline");
     }
 }
