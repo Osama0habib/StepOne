@@ -118,11 +118,11 @@ ValueEventListener seenListener;
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Chat chat = snapshot.getValue(Chat.class);
+                    Chat chat = dataSnapshot.getValue(Chat.class);
                     if(chat.getReceiver().equals(fUser.getUid()) && chat.getSender().equals(userId)){
                         HashMap<String , Object> hashMap = new HashMap<>();
                         hashMap.put("isseen",true);
-                        snapshot.getRef().updateChildren(hashMap);
+                        dataSnapshot.getRef().updateChildren(hashMap);
                     }
                 }
             }
@@ -134,6 +134,8 @@ ValueEventListener seenListener;
         });
     }
     private void sendMessage(String sender , String receiver , String message ){
+        intent = getIntent();
+        final String userId = intent.getStringExtra("userId");
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         HashMap<String,Object> hashMap = new HashMap<>();
         hashMap.put("sender" , sender);
@@ -141,6 +143,20 @@ ValueEventListener seenListener;
         hashMap.put("message",message);
         hashMap.put("isseen",false);
         reference.child("Chats").push().setValue(hashMap);
+        DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("Chatlist").child(fUser.getUid()).child(userId);
+        chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.exists()){
+                    chatRef.child("id").setValue(userId);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     private void readMessages(String myId , String userId , String imageURL){
         mChat = new ArrayList<>();

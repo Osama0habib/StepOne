@@ -58,7 +58,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             Glide.with(mContext).load(imageURL).into(holder.profile_image);
         }
         if(position == mChat.size()-1){
-            if(chat.isSeen()){
+            if(chat.isIsseen()){
                 holder.txt_seen.setText("Seen");
             }else{
                 holder.txt_seen.setText("Delivered");

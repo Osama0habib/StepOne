@@ -48,6 +48,21 @@
         android:layout_marginTop="10dp"
         android:layout_alignRight="@id/profile_image" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@+id/username"
+        android:layout_toRightOf="@+id/profile_image"
+        android:textColor="@color/orange"
+        android:paddingTop="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/last_msg"/>
+
+
+
+
 
 
 </RelativeLayout>
