@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +15,7 @@ import com.example.stepone.Adapter.UserAdapter;
 import com.example.stepone.Model.ChatList;
 import com.example.stepone.Model.User;
 import com.example.stepone.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +35,7 @@ public class ChatsFragment extends Fragment {
     private FirebaseUser fUser;
     private DatabaseReference reference;
     private List<ChatList> usersList;
+    private FloatingActionButton newChat;
 
 
 
@@ -45,6 +48,16 @@ public class ChatsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        newChat =view.findViewById(R.id.new_chat);
+        newChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.replace(R.id.frame , new UsersFragment());
+                fragmentTransaction.commit();
+
+            }
+        });
 
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         usersList = new ArrayList<>();

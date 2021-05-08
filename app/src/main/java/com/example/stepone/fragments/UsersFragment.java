@@ -40,6 +40,7 @@ EditText search_users;
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_users ,container, false);
 
+
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

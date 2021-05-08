@@ -97,7 +97,9 @@ ValueEventListener seenListener;
                 User user = snapshot.getValue(User.class);
                 username.setText(user.getUsername());
                 if (user.getImageURl().equals("default")){
-                    profile_image.setImageResource(R.mipmap.ic_launcher);
+                 //   Glide.with(getApplicationContext()).load(R.mipmap.ic_launcher).into(profile_image);
+
+                    profile_image.setImageResource(R.mipmap.ic_launcher_round);
                 }else {
                     Glide.with(getApplicationContext()).load(user.getImageURl()).into(profile_image);
                 }

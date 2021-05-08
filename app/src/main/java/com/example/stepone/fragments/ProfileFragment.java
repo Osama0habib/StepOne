@@ -75,6 +75,8 @@ public class ProfileFragment extends Fragment {
                 User user = snapshot.getValue(User.class);
                 username.setText(user.getUsername());
                 if(user.getImageURl().equals("default")){
+                    //Glide.with(getContext()).load(R.mipmap.ic_launcher_round).into(image_profile);
+
                     image_profile.setImageResource(R.mipmap.ic_launcher_round);
                 }else {
                     Glide.with(getContext()).load(user.getImageURl()).into(image_profile);
@@ -149,6 +151,7 @@ public class ProfileFragment extends Fragment {
         }
 
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
